@@ -1,9 +1,19 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import * as dat from 'dat.gui'; // Исправленный импорт
+import { Loader } from 'three/src/loaders/Loader.js';
 
 // Debug
 const gui = new dat.GUI(); // Создание экземпляра
+
+
+// Loaders
+const loader = new THREE.TextureLoader()
+
+// Textures
+const texture = loader.load("static/texture.jpg")
+const height = loader.load("texture.jpg")
+const alpha = loader.load("texture.jpg")
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl');
@@ -11,16 +21,18 @@ const canvas = document.querySelector('canvas.webgl');
 // Scene
 const scene = new THREE.Scene();
 
+
 // Objects
 const geometry = new THREE.PlaneGeometry(3, 3, 16, 16);
 const material = new THREE.MeshBasicMaterial({
   color: 'gray',
-  side: THREE.DoubleSide // Устанавливаем рендеринг с обеих сторон
+  map: texture,
+  side: THREE.DoubleSide, // Устанавливаем рендеринг с обеих сторон
 });
 
 const plane = new THREE.Mesh(geometry, material);
 scene.add(plane);
-plane.rotation.x = Math.PI; // Исправлено на Math.PI для более корректного поворота
+plane.rotation.x = 181; // Исправлено на Math.PI для более корректного поворота
 
 // Lights
 const pointLight = new THREE.PointLight(0xffffff, 2);
